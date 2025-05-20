@@ -1,0 +1,5 @@
+Leche_Alpura_Clásica 24.00 10
+Leche_Alpura_Deslactosada 30.00 10
+Doritos_Nacho 19.00 7
+Doritos_incognita 19.00 7
+Huevo_Blanco_San_Juan 40.50 3
