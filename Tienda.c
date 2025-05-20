@@ -100,6 +100,13 @@ void mostrarProductos(Producto* inicio, Usuario* usuario) {
                 else
                     printf("Este es el último producto.\n");
                 break;
+            case 'A':
+            case 'a':
+                if (actual->anterior != NULL)
+                    actual = actual->anterior;
+                else
+                    printf("Este es el primer producto.\n");
+                break;
             case 'C':
             case 'c':
             if (actual->cantidad > 0) {
@@ -147,6 +154,15 @@ void mostrarCarrito(Usuario* usuario) { // Se apunta al usuario
 }
 
 
+// Verifica que el número de usuario sea válido
+int UsuarioCelular_valido(const char* celular) {
+    if (strlen(celular) != 10) return 0;
+    for (int i = 0; celular[i] != '\0'; ++i) {
+        if (celular[i] < '0' || celular[i] > '9') return 0;
+    }
+    return 1;
+}
+
 // Muestra la información del usuario
 void mostrarUsuario(Usuario* usuario) {
     printf("\n=== INFORMACIÓN DEL USUARIO ===\n");
@@ -161,10 +177,14 @@ int main() {
     printf("Bienvenido a la tiendita virtual\n");
     printf("Por favor, ingresa tu nombre: ");
     scanf("%s", usuario.nombre);
-    
+    do {
         printf("Ahora, tu número de celular (10 dígitos): ");
         scanf("%s", usuario.celular);
- 
+        if (!UsuarioCelular_valido(usuario.celular)) {
+            printf("El número de celular no es válido, por favor intenta de nuevoo\n");
+        }
+    } while (!UsuarioCelular_valido(usuario.celular));
+
     usuario.totalPagar = 0;
     usuario.carrito = NULL;
     char nombreArchivo[100];
@@ -208,6 +228,8 @@ int main() {
                 mostrarProductos(productos, &usuario);
                 break;
             case 4:
+                printf("See you later....\n");
+                printf("Usted ha decidido dalir de esta maravillosa tiendita");
                 break;
             default:
                 printf("Opción inválida. Intenta de nuevo.\n");
