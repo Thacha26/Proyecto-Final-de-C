@@ -137,7 +137,7 @@ Producto* buscarProducto(Producto* a, char* nombre) {
 
 void mostrarCarrito(Usuario* usuario) { // Se apunta al usuario
     if (!usuario->carrito) { // Si el carrito está vacío (NULL)
-        printf("El carrito está vacío. Regresa al menú principal.\n"); // Devuelve un mensaje de error
+        printf("-------------- El carrito está vacío. Regresando al menú principal --------------\n"); // Devuelve un mensaje de error
         return;
     }
 
@@ -165,13 +165,21 @@ int UsuarioCelular_valido(const char* celular) {
 
 // Muestra la información del usuario
 void mostrarUsuario(Usuario* usuario) {
-    printf("\n=== INFORMACIÓN DEL USUARIO ===\n");
+    printf("\n=== INFORMACIÓN DEL USER ===\n");
     printf("Nombre: %s\n", usuario->nombre);
     printf("Celular: %s\n", usuario->celular);
     printf("Total acumulado: %.2f\n", usuario->totalPagar);
 }
+// Función que libera la memoria
+void liberarLista(Producto* inicio) {
+    Producto* temp;
+    while (inicio != NULL) {
+        temp = inicio;
+        inicio = inicio->siguiente;
+        free(temp);
+    }
+}
 
-// Función principal
 int main() {
     Usuario usuario;
     printf("Bienvenido a la tiendita virtual\n");
@@ -181,7 +189,9 @@ int main() {
         printf("Ahora, tu número de celular (10 dígitos): ");
         scanf("%s", usuario.celular);
         if (!UsuarioCelular_valido(usuario.celular)) {
-            printf("El número de celular no es válido, por favor intenta de nuevoo\n");
+            printf("\n");
+            printf("-------------- El número de celular no es válido, por favor intenta de nuevoo --------------\n");
+            printf("\n");
         }
     } while (!UsuarioCelular_valido(usuario.celular));
 
@@ -204,7 +214,30 @@ int main() {
        
     int opcion;
     do {
-        printf("\n==== MENÚ PRINCIPAL ====\n");
+        printf("\n");
+        printf("   /$$      /$$                                     /$$$$$$$                  /$$                  \n");
+        printf("  | $$$    /$$$                                    | $$__  $$                | $$                   \n");
+        printf("  | $$$$  /$$$$  /$$$$$$  /$$$$$$$  /$$   /$$      | $$  \\ $$  /$$$$$$       | $$  /$$$$$$           \n");
+        printf("  | $$ $$/$$ $$ /$$__  $$| $$__  $$| $$  | $$      | $$  | $$ /$$__  $$      | $$ |____  $$         \n");
+        printf("  | $$  $$$| $$| $$$$$$$$| $$  \\ $$| $$  | $$      | $$  | $$| $$$$$$$$      | $$  /$$$$$$$        \n");
+        printf("  | $$\\  $ | $$| $$_____/| $$  | $$| $$  | $$      | $$  | $$| $$_____/      | $$ /$$__  $$         \n");
+        printf("  | $$ \\/  | $$|  $$$$$$$| $$  | $$|  $$$$$$/      | $$$$$$$/|  $$$$$$$      | $$|  $$$$$$$        \n");
+        printf("  |__/     |__/ \\_______/|__/  |__/ \\______/       |_______/  \\_______/      |__/ \\_______/     \n");
+        printf("\n");
+       
+        printf(" /$$$$$$$$ /$$                           /$$ /$$   /$$              \n");
+        printf("|__  $$__/|__/                          | $$|__/  | $$              \n");
+        printf("   | $$    /$$  /$$$$$$  /$$$$$$$   /$$$$$$$ /$$ /$$$$$$    /$$$$$$ \n");
+        printf("   | $$   | $$ /$$__  $$| $$__  $$ /$$__  $$| $$|_  $$_/   |____  $$\n");
+        printf("   | $$   | $$| $$$$$$$$| $$  \\ $$| $$  | $$| $$  | $$      /$$$$$$$\n");
+        printf("   | $$   | $$| $$_____/| $$  | $$| $$  | $$| $$  | $$ /$$ /$$__  $$\n");
+        printf("   | $$   | $$|  $$$$$$$| $$  | $$|  $$$$$$$| $$  |  $$$$/|  $$$$$$$\n");
+        printf("   |__/   |__/ \\_______/|__/  |__/ \\_______/|__/   \\___/   \\_______/\n");
+        printf("                                                                    \n");
+        printf("                                                                    \n");
+        printf("                                                                    \n");
+        printf("\n");
+
         printf("1. Ver mi carrito de compras\n");
         printf("2. Ver mi información de usuario\n");
         printf("3. Ver la lista de productos\n");
@@ -214,8 +247,10 @@ int main() {
         scanf("%s", entrada);
 
         if (sscanf(entrada, "%d", &opcion) != 1 || opcion < 1) {
-            printf("Opción inválida. Intenta de nuevo.\n");
-            continue; // <- Esto evita que se ejecute el switch si la entrada no es válida
+            printf("\n");
+            printf("-------------- Opción inválida, intenta de nuez por fas --------------\n");
+            printf("\n");
+            continue; 
         }
         switch (opcion) {
             case 1:
@@ -228,15 +263,19 @@ int main() {
                 mostrarProductos(productos, &usuario);
                 break;
             case 4:
-                printf("See you later....\n");
-                printf("Usted ha decidido dalir de esta maravillosa tiendita");
+                printf("----- See you later.... -----\n");
+                printf("----- Usted ha decidido dalir de esta maravillosa tiendita ----\n");
                 break;
             default:
-                printf("Opción inválida. Intenta de nuevo.\n");
+                printf("\n");
+                printf("-------------- Opción inválida, intenta de nuez por fas --------------\n");
+                printf("\n");
                 break;
                
         }    
     } while (opcion != 4);
-
+    liberarLista(productos);          // Libera la lista de productos
+    liberarLista(usuario.carrito);    // Libera el carrito de compras
+    
     return 0;
 }
