@@ -126,15 +126,6 @@ void mostrarProductos(Producto* inicio, Usuario* usuario) {
 }
 
 
-Producto* buscarProducto(Producto* a, char* nombre) {
-    while (a != NULL) {
-        if (strcmp(a->nombre, nombre) == 0) {
-            return a;
-        }
-        a = a->siguiente; // Se avanza al siguiente elemento
-    }
-}    
-
 void mostrarCarrito(Usuario* usuario) { // Se apunta al usuario
     if (!usuario->carrito) { // Si el carrito está vacío (NULL)
         printf("-------------- El carrito está vacío. Regresando al menú principal --------------\n"); // Devuelve un mensaje de error
